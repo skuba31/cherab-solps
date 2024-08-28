@@ -1,9 +1,11 @@
+from collections import defaultdict
 from setuptools import setup, find_packages, Extension
 from Cython.Build import cythonize
 import sys
 import numpy
 import os
 import os.path as path
+from pathlib import Path
 
 force = False
 profile = False
@@ -37,6 +39,16 @@ if profile:
 with open("README.md") as f:
     long_description = f.read()
 
+# Include demos in a separate directory in the distribution as data_files.
+demo_parent_path = Path("share/cherab/demos/solps")
+data_files = defaultdict(list)
+demos_source = Path("demos")
+for item in demos_source.rglob("*"):
+    if item.is_file():
+        install_dir = demo_parent_path / item.parent.relative_to(demos_source)
+        data_files[str(install_dir)].append(str(item))
+data_files = list(data_files.items())
+
 setup(
     name="cherab-solps",
     version="1.3.0.dev1",
@@ -65,4 +77,5 @@ setup(
     include_package_data=True,
     install_requires=["raysect==0.8.1.*", "cherab==1.5.*"],
     ext_modules=cythonize(extensions, force=force, compiler_directives=cython_directives),
+    data_files=data_files,
 )
