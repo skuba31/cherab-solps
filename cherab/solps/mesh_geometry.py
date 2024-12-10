@@ -20,6 +20,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.collections import PolyCollection
+from matplotlib.tri import Triangulation
 
 
 class SOLPSMesh:
@@ -330,6 +331,33 @@ class SOLPSMesh:
         vec_pol[1] = self._inv_det * (self._poloidal_basis_vector[0] * vec_cart[1] - self._poloidal_basis_vector[1] * vec_cart[0])
 
         return vec_pol
+
+    def create_triangulation(self) -> Triangulation:
+        """
+        Creates a matplotlib Triangulation object from the triangle mesh.
+
+        It can be used as input for matplotlib's triangular mesh plotting functions.
+
+        :return: matplotlib.tri.Triangulation
+        """
+        return Triangulation(self.vertex_coordinates[:, 0], self.vertex_coordinates[:, 1], self.triangles)
+
+    def solps_to_triangulation(self, solps_data: np.ndarray) -> np.ndarray:
+        """
+        Converts the data defined on the SOLPS mesh to the triangle mesh.
+
+        :param solps_data: Data array defined on the SOLPS mesh
+        :return: Data array defined on the triangle mesh
+        """
+        return solps_data[self.triangle_to_grid_map[:, 0], self.triangle_to_grid_map[:, 1]]
+
+    def format_matplotlib_axes(self, ax: plt.Axes) -> plt.Axes:
+        ax.set_aspect(1)
+        ax.set_xlim(self.mesh_extent["minr"], self.mesh_extent["maxr"])
+        ax.set_ylim(self.mesh_extent["minz"], self.mesh_extent["maxz"])
+        ax.set_xlabel("R [m]")
+        ax.set_ylabel("z [m]")
+        return ax
 
     def plot_triangle_mesh(self, solps_data=None, ax=None):
         """
