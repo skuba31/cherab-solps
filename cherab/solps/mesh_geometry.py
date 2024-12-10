@@ -351,6 +351,36 @@ class SOLPSMesh:
         """
         return solps_data[self.triangle_to_grid_map[:, 0], self.triangle_to_grid_map[:, 1]]
 
+    def create_triangle_polycollection(self, solps_data: np.ndarray = None, **collection_kw) -> PolyCollection:
+        """
+        Creates a matplotlib PolyCollection object from the triangle mesh.
+
+        If solps_data is provided, it is used to colour the faces of the triangles in the mesh.
+
+        :param solps_data: Data array defined on the SOLPS mesh
+        :return: matplotlib.collections.PolyCollection
+        """
+        verts = self.vertex_coordinates[self.triangles]
+        collection_mesh = PolyCollection(verts, **collection_kw)
+        if solps_data is not None:
+            collection_mesh.set_array(solps_data[self.triangle_to_grid_map[:, 0], self.triangle_to_grid_map[:, 1]])
+        return collection_mesh
+
+    def create_quadrangle_polycollection(self, solps_data: np.ndarray = None, **collection_kw) -> PolyCollection:
+        """
+        Creates a matplotlib PolyCollection object from the quadrangle mesh.
+
+        If solps_data is provided, it is used to colour the faces of the quadrangles in the mesh.
+
+        :param solps_data: Data array defined on the SOLPS mesh
+        :return: matplotlib.collections.PolyCollection
+        """
+        verts = self.vertex_coordinates[self.quadrangles]
+        collection_mesh = PolyCollection(verts, **collection_kw)
+        if solps_data is not None:
+            collection_mesh.set_array(solps_data[self.quadrangle_to_grid_map[:, 0], self.quadrangle_to_grid_map[:, 1]])
+        return collection_mesh
+
     def format_matplotlib_axes(self, ax: plt.Axes) -> plt.Axes:
         ax.set_aspect(1)
         ax.set_xlim(self.mesh_extent["minr"], self.mesh_extent["maxr"])
@@ -368,19 +398,13 @@ class SOLPSMesh:
         if ax is None:
             _, ax = plt.subplots(constrained_layout=True)
 
-        verts = self.vertex_coordinates[self.triangles]
         if solps_data is None:
-            collection_mesh = PolyCollection(verts, facecolor="none", edgecolor='b', linewidth=0.5)
+            collection_mesh = self.create_triangle_polycollection(facecolor="none", edgecolor='b', linewidth=0.5)
         else:
-            collection_mesh = PolyCollection(verts)
-            collection_mesh.set_array(solps_data[self.triangle_to_grid_map[:, 0], self.triangle_to_grid_map[:, 1]])
+            collection_mesh = self.create_triangle_polycollection(solps_data)
         ax.add_collection(collection_mesh)
-        ax.set_aspect(1)
-        ax.set_xlim(self.mesh_extent["minr"], self.mesh_extent["maxr"])
-        ax.set_ylim(self.mesh_extent["minz"], self.mesh_extent["maxz"])
-        ax.set_xlabel("R [m]")
-        ax.set_ylabel("Z [m]")
 
+        self.format_matplotlib_axes(ax)
         return ax
 
     def plot_quadrangle_mesh(self, solps_data=None, ax=None):
@@ -393,17 +417,11 @@ class SOLPSMesh:
         if ax is None:
             _, ax = plt.subplots(constrained_layout=True)
 
-        verts = self.vertex_coordinates[self.quadrangles]
         if solps_data is None:
-            collection_mesh = PolyCollection(verts, facecolor="none", edgecolor='b', linewidth=0.5)
+            collection_mesh = self.create_quadrangle_polycollection(facecolor="none", edgecolor='b', linewidth=0.5)
         else:
-            collection_mesh = PolyCollection(verts)
-            collection_mesh.set_array(solps_data[self.quadrangle_to_grid_map[:, 0], self.quadrangle_to_grid_map[:, 1]])
+            collection_mesh = self.create_quadrangle_polycollection(solps_data)
         ax.add_collection(collection_mesh)
-        ax.set_aspect(1)
-        ax.set_xlim(self.mesh_extent["minr"], self.mesh_extent["maxr"])
-        ax.set_ylim(self.mesh_extent["minz"], self.mesh_extent["maxz"])
-        ax.set_xlabel("R [m]")
-        ax.set_ylabel("Z [m]")
 
+        self.format_matplotlib_axes(ax)
         return ax
