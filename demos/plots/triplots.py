@@ -18,8 +18,8 @@ import os
 import matplotlib.pyplot as plt
 from matplotlib.tri import Triangulation
 
-from cherab.solps import load_solps_from_raw_output, SOLPSSimulation
-from cherab.solps.plotting import format_matplotlib_axes
+from cherab.solps import load_solps_from_raw_output
+from cherab.solps.plot import format_matplotlib_axes
 
 
 # Load the simulation.
@@ -27,7 +27,7 @@ demos_directory = os.path.dirname(os.path.dirname(__file__))
 simulation_directory = os.path.join(demos_directory, 'data', 'raw')
 print('Loading simulation...')
 
-sim: SOLPSSimulation = load_solps_from_raw_output(simulation_directory)
+sim = load_solps_from_raw_output(simulation_directory)
 mesh = sim.mesh
 
 # prepare data for triangulation plots using matplotlib.tri

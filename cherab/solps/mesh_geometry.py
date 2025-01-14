@@ -16,6 +16,7 @@
 #
 # See the Licence for the specific language governing permissions and limitations
 # under the Licence.
+from warnings import warn
 
 import numpy as np
 
@@ -335,7 +336,8 @@ class SOLPSMesh:
 
         :param solps_data: Data array defined on the SOLPS mesh
         """
-        from .plotting import plot_triangle_mesh
+        warn("plot_triangle_mesh method is deprecated, use functions from plot module.", DeprecationWarning)
+        from .plot import plot_triangle_mesh
         ax = plot_triangle_mesh(self, solps_data, ax)
         return ax
 
@@ -345,6 +347,7 @@ class SOLPSMesh:
 
         :param solps_data: Data array defined on the SOLPS mesh
         """
-        from .plotting import plot_quadrangle_mesh
+        warn("plot_quadrangle_mesh method is deprecated, use functions from plot module.", DeprecationWarning)
+        from .plot import plot_quadrangle_mesh
         ax = plot_quadrangle_mesh(self, solps_data, ax)
         return ax

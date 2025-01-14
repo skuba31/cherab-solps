@@ -1,6 +1,10 @@
 Project Changelog
 =================
 
+Release 1.2.2
+-------------
+* Added a submodule for plotting, deprecating SOLPSMesh methods
+
 Release 1.2.1 (17 Feb 2023)
 -------------------
 

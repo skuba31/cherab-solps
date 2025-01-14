@@ -1,11 +1,14 @@
 import matplotlib.pyplot as plt
-import numpy as np
 from matplotlib.collections import PolyCollection
 
 
 def plot_quadrangle_mesh(mesh, solps_data=None, ax=None):
     """
-    Plot the quadrangle mesh grid geometry to a matplotlib figure.
+    Plots the quadrangle mesh grid geometry to a matplotlib figure.
+
+    If solps_data is provided, it is used to colour the faces of the quadrangles in the mesh.
+    If matplotlib axes are provided the collection is added to them them,
+    otherwise a new figure and axes are created.
 
     :param mesh: SOLPSMesh object
     :param solps_data: Data array defined on the SOLPS mesh (optional)
@@ -25,7 +28,7 @@ def plot_quadrangle_mesh(mesh, solps_data=None, ax=None):
     return ax
 
 
-def create_quadrangle_polycollection(mesh, solps_data: np.ndarray = None, **collection_kw):
+def create_quadrangle_polycollection(mesh, solps_data=None, **collection_kw):
     """
     Creates a matplotlib PolyCollection object from the quadrangle mesh.
 
@@ -44,9 +47,12 @@ def create_quadrangle_polycollection(mesh, solps_data: np.ndarray = None, **coll
     return collection_mesh
 
 
-def format_matplotlib_axes(ax: plt.Axes, mesh=None) -> plt.Axes:
+def format_matplotlib_axes(ax, mesh=None):
     """
-    Format the matplotlib axes for a SOLPS mesh plot.
+    Formats the matplotlib axes for a SOLPS mesh plot.
+
+    Sets aspect and labels for the axes. 
+    If a SOLPSMesh object is provided, sets the limits of the axes to the mesh extent.
 
     :param ax: matplotlib axes
     :param mesh: SOLPSMesh object (optional)
@@ -61,9 +67,13 @@ def format_matplotlib_axes(ax: plt.Axes, mesh=None) -> plt.Axes:
     return ax
 
 
-def plot_triangle_mesh(mesh, solps_data: np.ndarray = None, ax: plt.Axes = None) -> plt.Axes:
+def plot_triangle_mesh(mesh, solps_data=None, ax=None):
     """
-    Plot the triangle mesh grid geometry to a matplotlib figure.
+    Plots the triangle mesh grid geometry to a matplotlib figure.
+
+    If solps_data is provided, it is used to colour the faces of the triangles in the mesh.
+    If matplotlib axes are provided the collection is added to them them, 
+    otherwise a new figure and axes are created.
 
     :param mesh: SOLPSMesh object
     :param solps_data: Data array defined on the SOLPS mesh
@@ -83,7 +93,7 @@ def plot_triangle_mesh(mesh, solps_data: np.ndarray = None, ax: plt.Axes = None)
     return ax
 
 
-def create_triangle_polycollection(mesh, solps_data: np.ndarray = None, **collection_kw) -> PolyCollection:
+def create_triangle_polycollection(mesh, solps_data=None, **collection_kw):
     """
     Creates a matplotlib PolyCollection object from the triangle mesh.
 

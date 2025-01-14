@@ -17,7 +17,7 @@ import os
 import matplotlib.pyplot as plt
 
 from cherab.solps import load_solps_from_raw_output
-from cherab.solps.plotting import create_quadrangle_polycollection, create_triangle_polycollection, format_matplotlib_axes
+from cherab.solps.plot import create_quadrangle_polycollection, create_triangle_polycollection, format_matplotlib_axes
 
 
 plt.rcParams['figure.figsize'] = [5, 10]  # default figure size

@@ -20,7 +20,7 @@ import matplotlib.pyplot as plt
 from matplotlib.collections import PolyCollection
 
 from cherab.solps import load_solps_from_raw_output
-from cherab.solps.plotting import plot_quadrangle_mesh, plot_triangle_mesh
+from cherab.solps.plot import plot_quadrangle_mesh, plot_triangle_mesh
 
 
 # Load the simulation.
