@@ -3,7 +3,7 @@ Project Changelog
 
 Release 1.2.2
 -------------
-* Added a submodule for plotting, deprecating SOLPSMesh methods
+* Added a submodule for plotting, deprecating `SOLPSMesh` methods ([#80](https://github.com/cherab/solps/issues/80))
 
 Release 1.2.1 (17 Feb 2023)
 -------------------
