@@ -24,7 +24,7 @@ def plot_quadrangle_mesh(mesh, solps_data=None, ax=None):
         collection_mesh = create_quadrangle_polycollection(mesh, solps_data)
     ax.add_collection(collection_mesh)
 
-    ax = format_matplotlib_axes(ax, mesh)
+    ax = _format_matplotlib_axes(ax, mesh)
     return ax
 
 
@@ -47,7 +47,7 @@ def create_quadrangle_polycollection(mesh, solps_data=None, **collection_kw):
     return collection_mesh
 
 
-def format_matplotlib_axes(ax, mesh=None):
+def _format_matplotlib_axes(ax, mesh=None):
     """
     Formats the matplotlib axes for a SOLPS mesh plot.
 
@@ -89,7 +89,7 @@ def plot_triangle_mesh(mesh, solps_data=None, ax=None):
         collection_mesh = create_triangle_polycollection(mesh, solps_data)
     ax.add_collection(collection_mesh)
 
-    ax = format_matplotlib_axes(ax, mesh)
+    ax = _format_matplotlib_axes(ax, mesh)
     return ax
 
 
