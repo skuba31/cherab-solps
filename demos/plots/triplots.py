@@ -19,7 +19,6 @@ import matplotlib.pyplot as plt
 from matplotlib.tri import Triangulation
 
 from cherab.solps import load_solps_from_raw_output
-from cherab.solps.plot import format_matplotlib_axes
 
 
 # Load the simulation.
@@ -40,7 +39,9 @@ fig_mesh = plt.figure()
 ax_mesh = fig_mesh.add_subplot(111)
 ax_mesh.set_title("Mesh")
 ax_mesh.triplot(tri, lw=0.2)
-format_matplotlib_axes(ax_mesh, mesh)
+ax_mesh.set_aspect('equal')
+ax_mesh.set_xlabel("R [m]")
+ax_mesh.set_ylabel("z [m]")
 
 
 # plot ion temperature
@@ -48,6 +49,9 @@ fig_ion_temperature = plt.figure()
 ax_ion_temperature = fig_ion_temperature.add_subplot(111)
 tpc = ax_ion_temperature.tripcolor(tri, ion_temperature_tri)
 fig_ion_temperature.colorbar(tpc, ax=ax_ion_temperature, label="Ion Temperature [eV]")
-format_matplotlib_axes(ax_ion_temperature, mesh)
+ax_ion_temperature.set_title("Ion Temperature")
+ax_ion_temperature.set_aspect('equal')
+ax_ion_temperature.set_xlabel("R [m]")
+ax_ion_temperature.set_ylabel("z [m]")
 
 plt.show()
