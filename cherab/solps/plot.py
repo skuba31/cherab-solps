@@ -61,9 +61,8 @@ def create_quadrangle_polycollection(mesh, solps_data=None, **collection_kw):
     If solps_data is provided, it is used to colour the faces of the quadrangles in the mesh.
 
     :param mesh: SOLPSMesh object
-    :param solps_data: Optional[np.ndarray] - Data array defined on the SOLPS mesh
+    :param solps_data: Data array defined on the SOLPS mesh
     :param collection_kw: Keyword arguments for the PolyCollection
-    
     :return: matplotlib.collections.PolyCollection
     """
     verts = mesh.vertex_coordinates[mesh.quadrangles]
@@ -81,6 +80,7 @@ def create_triangle_polycollection(mesh, solps_data=None, **collection_kw):
 
     :param mesh: SOLPSMesh object
     :param solps_data: Data array defined on the SOLPS mesh
+    :param collection_kw: Keyword arguments for the PolyCollection
     :return: matplotlib.collections.PolyCollection
     """
     verts = mesh.vertex_coordinates[mesh.triangles]
